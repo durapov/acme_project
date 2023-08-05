@@ -2,4 +2,39 @@
 
 {% block content %}
 
+<!--
+<form>
+    <table>
+        {{ form }}
+    </table>
+    <input type="submit" value="Submit">
+</form>
+<form>
+    <ul>
+      {{ form.as_ul }}
+    </ul>
+    <input type="submit" value="Submit">
+  </form> 
+-->
+
+
+  <form>
+    {{ form.as_p }}
+    <input type="submit" value="Submit">
+  </form> 
+   <!-- Присваиваем переменной data объект request.GET -->
+  {% with data=request.GET %}
+   <!-- В дальнейшем используем имя data вместо request.GET -->
+    {% if form.is_valid %}
+      <h2>Привет, {{ data.first_name }} {{ data.last_name }}</h2>
+      {% if birthday_countdown == 0 %}
+      С днём рождения!
+      {% else %}
+      Осталось дней до дня рождения: {{ birthday_countdown }}!
+      {% endif %}
+    {% endif %}
+
+    <!-- Когда заканчивается область шаблона, где нужна переменная, 
+    закрываем тег with -->
+  {% endwith %}
 {% endblock %}
